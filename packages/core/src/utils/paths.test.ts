@@ -14,6 +14,8 @@ import {
   isSubpath,
   shortenPath,
   resolveToRealPath,
+  tildeifyPath,
+  homedir,
 } from './paths.js';
 
 vi.mock('node:fs', async (importOriginal) => {
@@ -527,5 +529,28 @@ describe('resolveToRealPath', () => {
     const expected = p;
 
     expect(resolveToRealPath(input)).toBe(expected);
+  });
+});
+
+describe('tildeifyPath', () => {
+  const home = homedir();
+
+  it('should replace the home directory prefix with a tilde', () => {
+    const input = path.join(home, 'projects', 'file.txt');
+    expect(tildeifyPath(input)).toBe(`~${path.sep}projects${path.sep}file.txt`);
+  });
+
+  it('should tildeify the home directory itself', () => {
+    expect(tildeifyPath(home)).toBe('~');
+  });
+
+  it('should not tildeify a sibling path that merely starts with the home dir name', () => {
+    const sibling = `${home}foo${path.sep}bar`;
+    expect(tildeifyPath(sibling)).toBe(sibling);
+  });
+
+  it('should return an unrelated path unchanged', () => {
+    const other = path.join(path.sep, 'tmp', 'something');
+    expect(tildeifyPath(other)).toBe(other);
   });
 });
