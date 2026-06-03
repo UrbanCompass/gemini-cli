@@ -154,7 +154,7 @@ export class ExtensionManager extends ExtensionLoader {
             return new RegExp(pattern).test(installMetadata.source);
           } catch (e) {
             throw new Error(
-              `Invalid regex pattern in allowedExtensions setting: "${pattern}. Error: ${getErrorMessage(e)}`,
+              `Invalid regex pattern in allowedExtensions setting: "${pattern}". Error: ${getErrorMessage(e)}`,
             );
           }
         },
@@ -558,7 +558,7 @@ Would you like to attempt to install via "git clone" instead?`,
             return new RegExp(pattern).test(installMetadata?.source);
           } catch (e) {
             throw new Error(
-              `Invalid regex pattern in allowedExtensions setting: "${pattern}. Error: ${getErrorMessage(e)}`,
+              `Invalid regex pattern in allowedExtensions setting: "${pattern}". Error: ${getErrorMessage(e)}`,
             );
           }
         },
