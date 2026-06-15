@@ -157,7 +157,7 @@ export class ExtensionEnablementManager {
       // When checking against overrides ONLY, we use a case insensitive match.
       // The override names are already lowercased in the constructor.
       return this.enabledExtensionNamesOverride.includes(
-        extensionName.toLocaleLowerCase(),
+        extensionName.toLowerCase(),
       );
     }
 
